@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='index.css' rel='stylesheet' type='text/css'>
+    <title>Диаграммы</title>
+</head>
+<body>
+    <table id="data-table">
+        <tr>
+            <th>Название</th>
+            <th>Значение</th>
+        </tr>
+    </table>
+
+    <form id="add-data-form">
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="value">Значение:</label>
+        <input type="number" id="value" name="value" required>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <label for="chart-type">Вид диаграммы:</label>
+    <select id="chart-type">
+        <option value="bar">Гистограмма</option>
+        <option value="pie">Круговая</option>
+        <option value="doughnut">Кольцевая</option>
+        <option value="line">График</option>
+    </select>
+
+    <canvas id="chart-canvas" width="800" height="400"></canvas>
+
+    <script src="chart.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
