@@ -4,7 +4,11 @@ export class Bus {
     this.currentStop = 0;
     this.passengers = 0;
     this.route = [];
-    this.busElement = document.querySelector(".bus");
+    this.busElement = document.querySelector(".bus");  // VN: По заданию, класс Bus не должен взаимодействовать с интерфейсом.
+                                                       // Но если уж взаимодействует, то логично в конструкторе создавать
+                                                       // новый элемент интерфейса, а не использовать имеющийся. Если вам
+                                                       // вдруг потребуются два экземпляра класса Bus, этот код приведёт к
+                                                       // очень забавным результатам.
   }
   setRoute(route) {
     this.route = route;
@@ -20,7 +24,9 @@ export class Bus {
     this.busElement.style.transition = `left ${travelTime}ms linear`;
     const currentPosition = parseInt(this.busElement.style.left);
     const newPosition = currentPosition + distance * 100;
-    this.busElement.style.left = `${newPosition}px`;
+    this.busElement.style.left = `${newPosition}px`;    // VN: это причина странного перемещения элемента автобуса на странице -
+                                                        // main.js и bus.js управляют одним и тем же объектом. При этом main.js
+                                                        // "знает" о реальных координатах следующей остановки, а bus.js не знает
   
     await new Promise(resolve => setTimeout(resolve, travelTime));
   
