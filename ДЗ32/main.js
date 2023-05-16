@@ -25,12 +25,13 @@ const moveBusToNextStop = async () => {
 
 goButton.addEventListener("click", async () => {
   goButton.setAttribute("disabled", "disabled");
-  for (let i = 0; i < stopList.nodes.length; i++) {
+  for (let i = 0; i < stopList.nodes.length; i++) {     // VN: по кнопке "поехали" автобус должен проезжать до следующей
+                                                        // остановки, а не все сразу. Цикл здесь не нужен
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await moveBusToNextStop();
   }
-  bus.finish();
-  goButton.removeAttribute("disabled");
+  bus.finish();                                // VN: метода finish нет в классе Bus, поэтому в этом месте происходит ошибка
+  goButton.removeAttribute("disabled");        // и эта строка никогда не выполняется
 });
 
 const newRouteButton = document.getElementById("newRoute");
@@ -45,7 +46,10 @@ newRouteButton.addEventListener("click", async () => {
     stopList = new StopList(roadLength, parseInt(numberOfStops));
     stopList.nodes.forEach((stop) => roadElement.appendChild(stop));
 
-    bus.busElement.style.left = `${stopList.nodes[0].offsetLeft - bus.busElement.clientWidth / 2}px`;
+    bus.busElement.style.left = `${stopList.nodes[0].offsetLeft - bus.busElement.clientWidth / 2}px`;  // VN: Зачем-то вы сделали, чтобы
+                                                                                                       // автобус сразу стал возле первой
+                                                                                                       // остановки. Потом на первой итерации
+                                                                                                       // он будет ехать к ней же
     goButton.removeAttribute("disabled");
 
     bus.setRoute(stopList.route);
